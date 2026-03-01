@@ -22,7 +22,6 @@ function Section({ title, endpoint }) {
     fetchAlbums();
   }, [endpoint]);
 
-  const displayedAlbums = showAll ? albums : albums.slice(0, 7);
 
   return (
     <div className={styles.section}>
@@ -37,14 +36,20 @@ function Section({ title, endpoint }) {
       </div>
 
       <div className={styles.grid}>
-        {displayedAlbums.map((album) => (
-          <Card
-            key={album.id}
-            image={album.image}
-            title={album.title}
-            follows={album.follows}
-          />
-        ))}
+        {albums.map((album, index) => (
+  <div
+    key={album.id}
+    style={{
+      display: !showAll && index >= 7 ? "none" : "block"
+    }}
+  >
+    <Card
+      image={album.image}
+      title={album.title}
+      follows={album.follows}
+    />
+  </div>
+))}
       </div>
     </div>
   );
