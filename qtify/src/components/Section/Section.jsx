@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styles from "./Section.module.css";
 import Card from "../Card/Card";
+import Slider from "../Slider/Slider";
 
 function Section({ title, endpoint }) {
   const [albums, setAlbums] = useState([]);
@@ -11,7 +12,7 @@ function Section({ title, endpoint }) {
     const fetchAlbums = async () => {
       try {
         const res = await axios.get(
-          `https://qtify-backend.labs.crio.do${endpoint}`
+          `https://qtify-backend.labs.crio.do/albums/${endpoint}`
         );
         setAlbums(res.data);
       } catch (err) {
@@ -22,11 +23,11 @@ function Section({ title, endpoint }) {
     fetchAlbums();
   }, [endpoint]);
 
-
   return (
     <div className={styles.section}>
       <div className={styles.header}>
         <h2>{title}</h2>
+
         <button
           className={styles.toggle}
           onClick={() => setShowAll(!showAll)}
@@ -35,22 +36,29 @@ function Section({ title, endpoint }) {
         </button>
       </div>
 
-      <div className={styles.grid}>
-        {albums.map((album, index) => (
-  <div
-    key={album.id}
-    style={{
-      display: !showAll && index >= 7 ? "none" : "block"
-    }}
-  >
-    <Card
-      image={album.image}
-      title={album.title}
-      follows={album.follows}
-    />
-  </div>
-))}
-      </div>
+      {showAll ? (
+        <div className={styles.grid}>
+          {albums.map((album) => (
+            <Card
+              key={album.id}
+              image={album.image}
+              title={album.title}
+              follows={album.follows}
+            />
+          ))}
+        </div>
+      ) : (
+        <Slider
+          data={albums.map((album) => (
+            <Card
+              key={album.id}
+              image={album.image}
+              title={album.title}
+              follows={album.follows}
+            />
+          ))}
+        />
+      )}
     </div>
   );
 }

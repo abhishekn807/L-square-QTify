@@ -1,15 +1,13 @@
-
 .section {
   padding: 40px 32px;
   background-color: #121212;
 }
 
-
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .header h2 {
@@ -22,13 +20,12 @@
   background: none;
   border: none;
   color: #34c94b;
-  cursor: pointer;
   font-weight: 600;
+  cursor: pointer;
 }
 
-
 .grid {
-  display: flex;
-  gap: 24px;
-  overflow: auto;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 20px;
 }
