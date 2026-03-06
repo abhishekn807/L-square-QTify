@@ -12,6 +12,7 @@ function App() {
 
       <Section title="Top Albums" endpoint="top" />
       <Section title="New Albums" endpoint="new" />
+      <Section title="Songs" endpoint="songs" />
     </BrowserRouter>
   );
 }
